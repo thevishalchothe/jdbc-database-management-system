@@ -12,17 +12,13 @@ The following examples demonstrate **Student Management**, **Book Management**, 
 
 The **JDBC-Database-Management-Systems** is designed with modularity, with each system handling a specific part of the database operations:
 
-#### **Student Management System 📚**
+#### 1) **Student Management System 📚**
 The **Student Management** focuses on managing student records using the `Statement` interface to execute static SQL queries. 
 
----
-
-#### **Book Management System 📖**
+#### 2) **Book Management System 📖**
 The **Book Management** uses the `PreparedStatement` interface to perform parameterized queries. It allows safer and more efficient interactions with the database by preventing SQL injection and improving performance.
 
----
-
-#### **Product Management System 🛒**
+#### 3) **Product Management System 🛒**
 The **Product Management** uses the `CallableStatement` interface to interact with stored procedures. This service is ideal for performing operations that require reusable SQL logic stored in the database, such as complex product queries.
 
 ---
