@@ -1,6 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="MainApplication" type="Application" factoryName="Application" nameIsGenerated="true">
     <option name="MAIN_CLASS_NAME" value="com.sms.jdbc.statementInterface.ui.MainApplication" />
+    <module name="student-management-system-jdbc-statement-interface" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.sms.jdbc.statementInterface.ui.*" />
