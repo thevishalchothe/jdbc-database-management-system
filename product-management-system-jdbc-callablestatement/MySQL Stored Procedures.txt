@@ -1,0 +1,139 @@
+--  CRUD operations (Create, Read, Update, Delete) using Callable Statements, we'll use stored procedures for each operation. Here's the step-by-step..
+Step 1: MySQL Stored Procedures
+First, we need to create the corresponding stored procedures for each operation in the database. You can execute the following SQL in MySQL to create these stored procedures:
+---
+Step 2: Java ProductDaoImpl Class
+Now, let's implement the ProductDaoImpl class with CallableStatement for each CRUD operation. Here's the full implementation for example :
+
+public class ProductDaoImpl implements ProductDaoI {
+
+    @Override
+    public void addProduct(Product product) {
+        String query = "{CALL InsertProduct(?, ?, ?, ?, ?)}"; // Stored procedure call
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             CallableStatement callableStatement = connection.prepareCall(query)) {
+
+            // Set the parameters for the stored procedure
+            callableStatement.setString(1, product.getSku());
+            callableStatement.setString(2, product.getName());
+            callableStatement.setString(3, product.getManufacturer());
+            callableStatement.setDouble(4, product.getPrice());
+            callableStatement.setInt(5, product.getQuantity());
+
+            // Execute the stored procedure
+            boolean rowsAffected = callableStatement.execute();
+
+            System.out.println("\nProduct added successfully!");
+            System.out.println(String.format(
+                    "\nProduct Details: [ID: %d, SKU: %s, Name: %s, Manufacturer: %s, Price: %.2f, Quantity: %d]",
+                    product.getId(), product.getSku(), product.getName(), product.getManufacturer(),
+                    product.getPrice(), product.getQuantity()));
+
+            System.out.println("Stored Procedure Executed. Rows affected: " + rowsAffected);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+-----
+Explanation:
+
+Stored Procedures: Each method calls a corresponding stored procedure in the database using CallableStatement.
+CRUD Operations: Methods for adding, retrieving, updating, and deleting products are implemented using callable statements.
+Error Handling: The SQL exceptions are caught and printed to the console for debugging.
+Print Statements: All product details are printed after each operation for verification.
+--------------------------------------------------------------------------------------------------
+
+-- Stored procedure to Create a productTable
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateProductsTable`()
+BEGIN
+    CREATE TABLE IF NOT EXISTS products (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        sku VARCHAR(20) UNIQUE NOT NULL, -- SKU (Stock Keeping Unit)
+        name VARCHAR(100) NOT NULL, -- Product name
+        description VARCHAR(255), -- Product description
+        manufacturer VARCHAR(50), -- Manufacturer details
+        price DOUBLE NOT NULL, -- Product price
+        quantity INT NOT NULL -- Available quantity
+    );
+END //
+
+-- Stored procedure to insert a product
+CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertProduct`(
+    IN sku VARCHAR(20),
+    IN name VARCHAR(100),
+    IN description VARCHAR(255), -- New parameter for product description
+    IN manufacturer VARCHAR(50),
+    IN price DOUBLE,
+    IN quantity INT
+)
+BEGIN
+    INSERT INTO products (sku, name, description, manufacturer, price, quantity)
+    VALUES (sku, name, description, manufacturer, price, quantity);
+END //
+
+-- Stored procedure to retrieve a product by ID
+CREATE PROCEDURE get_product_by_id(
+    IN p_id INT
+)
+BEGIN
+    SELECT * FROM products WHERE id = p_id;
+END //
+
+-- Stored procedure to retrieve a product by SKU
+CREATE PROCEDURE get_product_by_sku(
+    IN p_sku VARCHAR(20)
+)
+BEGIN
+    SELECT * FROM products WHERE sku = p_sku;
+END //
+
+-- Stored procedure to retrieve all products
+CREATE PROCEDURE get_all_products()
+BEGIN
+    SELECT * FROM products;
+END //
+
+-- Stored procedure to update a product
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_product`(
+    IN p_id INT,
+    IN p_sku VARCHAR(20),
+    IN p_name VARCHAR(100),
+    IN p_description VARCHAR(255), -- New parameter for product description
+    IN p_manufacturer VARCHAR(50),
+    IN p_price DOUBLE,
+    IN p_quantity INT
+)
+BEGIN
+    UPDATE products
+    SET 
+        sku = p_sku, 
+        name = p_name, 
+        description = p_description, -- Update description
+        manufacturer = p_manufacturer, 
+        price = p_price, 
+        quantity = p_quantity
+    WHERE id = p_id;
+END //
+
+-- Stored procedure to delete a product by ID
+CREATE PROCEDURE delete_product_by_id(
+    IN p_id INT
+)
+BEGIN
+    DELETE FROM products WHERE id = p_id;
+END //
+
+-- Stored procedure to delete a product by SKU
+CREATE PROCEDURE delete_product_by_sku(
+    IN p_sku VARCHAR(20)
+)
+BEGIN
+    DELETE FROM products WHERE sku = p_sku;
+END //
+
+-- Stored procedure to delete all products
+CREATE PROCEDURE delete_all_products()
+BEGIN
+    DELETE FROM products;
+END //
