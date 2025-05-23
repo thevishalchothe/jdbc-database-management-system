@@ -1,25 +1,33 @@
-# **JDBC-Database-Management-Systems 📡**
+# JDBC-Database-Management-Systems 🌐
 
-## **What is JDBC-Database-Management-Systems?** 🌐
+## What is JDBC-Database-Management-Systems?
 
-The **JDBC-Database-Management-Systems** is a collection of projects demonstrating **JDBC operations** in Java. These projects focus on various methods of interacting with databases, ensuring secure, efficient, and scalable database management. The system utilizes **JDBC Statements** (including `Statement`, `PreparedStatement`, and `CallableStatement`) to perform **CRUD operations** in a database.
-
-The following examples demonstrate **Student Management**, **Book Management**, and **Product Management**, each showing different approaches for querying and manipulating data.
+The `jdbc-database-management-system` is a collection of projects demonstrating **JDBC operations** in Java. These projects showcase various methods of interacting with databases, focusing on secure, efficient, and scalable database management. The system utilizes **JDBC Statements**—`Statement`, `PreparedStatement`, and `CallableStatement`—to perform **CRUD operations**.
 
 ---
 
-## **Architecture** 🏗️
+## Architecture 🏗️
 
-The **JDBC-Database-Management-Systems** is designed with modularity, with each system handling a specific part of the database operations:
+This repository follows a modular structure, where each subproject is dedicated to a specific JDBC interface and real-world use case.
 
-#### 1) **Student Management System 📚**
-The **Student Management** focuses on managing student records using the `Statement` interface to execute static SQL queries. 
+### Student Management System (JDBC Statement)
+- **Interface Used:** `Statement`
+- **Description:** Executes static SQL queries for basic student data operations.
+- **CRUD Example Project:** 👉 [View Project Example Link](https://github.com/thevishalchothe/jdbc-database-management-system/tree/929c478edff9e4fddd61004c4c19ab31290dd488/student-management-system-jdbc-statement-interface)
 
-#### 2) **Book Management System 📖**
-The **Book Management** uses the `PreparedStatement` interface to perform parameterized queries. It allows safer and more efficient interactions with the database by preventing SQL injection and improving performance.
+---
 
-#### 3) **Product Management System 🛒**
-The **Product Management** uses the `CallableStatement` interface to interact with stored procedures. This service is ideal for performing operations that require reusable SQL logic stored in the database, such as complex product queries.
+### Book Management System (JDBC PreparedStatement)
+- **Interface Used:** `PreparedStatement`
+- **Description:** Uses parameterized queries to safely manage book records and prevent SQL injection.
+- **CRUD Example Project:** 👉 [View Project Example Link](https://github.com/thevishalchothe/jdbc-database-management-system/tree/929c478edff9e4fddd61004c4c19ab31290dd488/book-management-system-jdbc-preparedstatement)
+
+---
+
+### Product Management System (JDBC CallableStatement)
+- **Interface Used:** `CallableStatement`
+- **Description:** Calls stored procedures to manage product data and encapsulate complex SQL logic.
+- **CRUD Example Project:** 👉 [View Project Example Link](https://github.com/thevishalchothe/jdbc-database-management-system/tree/929c478edff9e4fddd61004c4c19ab31290dd488/product-management-system-jdbc-callablestatement)
 
 ---
 
